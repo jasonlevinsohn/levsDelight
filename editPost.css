@@ -1,0 +1,33 @@
+.proWrap { 
+			border					: 1px #999999 solid;
+			margin					: 3px;
+			-moz-border-radius		: 5px;
+			-webkit-border-radius	: 5px;
+			background-color		: #E9F2E9;
+			padding-bottom			: 3px
+		}
+		
+		.proSelected {
+			border				: 1px #65E665 solid;
+			background-color	: #65E665;
+			cursor				: pointer;
+		}
+		
+		.proOver {
+			border				: 1px #B5F5B5 solid;
+			background-color	: #B5F5B5;
+			cursor				: pointer;
+		}
+		
+		.proName {
+			font-weight		: bold;
+			margin-left		: 5px;
+			font-size		: 14px;
+			text-decoration 	: none;
+			color			: #323632;
+		}
+		
+		.title {
+			margin-left		: 5px;
+			font-weight		: bold;
+		}

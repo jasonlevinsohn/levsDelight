@@ -1,0 +1,7 @@
+DirectoryIndex index.php index.html
+
+Options -Indexes
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^(www.)?levsdelight.com$
+RewriteRule ^(/)?$ january2013 [L]
