@@ -7,9 +7,16 @@ try {
 	$title = "Put Title Here.";
 	$desc = "Put Description Here.";
           $maxId = "1000";
-	$monthId = "13";
+    $monthId = "13";
+    $createThumb = False;
+
 	if(isset($_POST['month'])){
-		$month = $_POST['month'];
+        $month = $_POST['month'];
+
+        // Check to see if Ezra is the month and we will create a thumbnail picture as well.
+        if($month == 'ezra') {
+            $createThumb = True;
+        }
 		if(isset($_POST['description'])) {
 			$desc = $_POST['description'];
 		}
@@ -37,16 +44,32 @@ try {
 		//******************UPLOAD OUR IMAGE TO THE SERVER**********************
 		//move_uploaded_file($_FILES["file"]["tmp_name"], "/var/www/levsdelight/htdocs/" . $newImageName);
 		try {
-			$uploadPath = "/var/www/levsdelight/htdocs/" . $month . "/" . $month . "-pictures/mobile-image" . $maxId . ".jpg";
-			
-			//Get the Image from the FILES Header
-			$image = new Imagick($_FILES["file"]["tmp_name"]);
-			
-			//Resize the image to what we need
-			$image->thumbnailImage(533, 400, TRUE);
-			
-			//Save the Image to our slideshow folder
-			$image->writeImage($uploadPath);
+
+
+            // Create Thumbnail if Ezra Picture
+            if ($createThumb) {
+			    $thumbPath = "/var/www/levsdelight/htdocs/" . $month . "/" . $month . "-pictures/thumbs/mobile-image" . $maxId . ".jpg";
+                $image2 = new Imagick($_FILES["file"]["tmp_name"]);
+			    $image2->thumbnailImage(20, 20, TRUE);
+			    $image2->writeImage($thumbPath);
+
+			    $uploadPath = "/var/www/levsdelight/htdocs/" . $month . "/" . $month . "-pictures/large/mobile-image" . $maxId . ".jpg";
+                $image = new Imagick($_FILES["file"]["tmp_name"]);
+			    $image->thumbnailImage(533, 400, TRUE);
+			    $image->writeImage($uploadPath);
+            } else {
+
+                $uploadPath = "/var/www/levsdelight/htdocs/" . $month . "/" . $month . "-pictures/mobile-image" . $maxId . ".jpg";
+                
+                //Get the Image from the FILES Header
+                $image = new Imagick($_FILES["file"]["tmp_name"]);
+
+                //Resize the image to what we need
+                $image->thumbnailImage(533, 400, TRUE);
+                
+                //Save the Image to our slideshow folder
+                $image->writeImage($uploadPath);
+            }
 			
 			
 		} catch (Exception $e) {
