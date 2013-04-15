@@ -13,16 +13,56 @@ Released   : 20090717
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>February Pictures - LevsDelight</title>
-<meta name="keywords" content="February pictures, villa rica farm" />
-<meta name="description" content="" />
+<title>February 2013 Pictures - LevsDelight</title>
+<meta name="keywords" content="February 2013 pictures, villa rica farm, llamas, petting zoo, pot-belly pig" />
+<meta name="description" content="Natty and Jason's Petting Zoo with Llamas, chickens, pot-belly pigs, and a donkey." />
 <!-- <link rel="stylesheet" type="text/css" href="extjs/ext-4-0-2a/resources/css/ext-standard.css"> -->
 <link href="../css/style.css" rel="stylesheet" type="text/css" media="screen" /> 
 <!-- Snow Layer  -->
 <!-- <link href="../css/snow.css" rel="stylesheet" type="text/css" /> -->
 <style type="text/css">
 
-	
+/* Resize the slideshow images to fit */
+#slideshow img {
+    width: 500px;
+    height: 299px;
+
+    /* This creates duration for image scaling on hover */
+    -webkit-transition: all .4s ease-in-out;
+            transition: all .4s ease-in-out;
+}
+
+#slideshow img:hover {
+  -webkit-transform: scale(1.7);
+     -moz-transform: scale(1.7);
+      -ms-transform: scale(1.7);
+       -o-transform: scale(1.7);
+          transform: scale(1.7);
+          z-index: 100;
+
+  /* This fixes the problem in Webkit where the thumbnail images */
+  /* show through when scaling on a hover event */
+  -webkit-backface-visibility: hidden;
+  position: relative;
+}
+
+#contactus {
+    position:     relative;
+    left:         360px;
+    /* left:         -10px; */
+    top:          48px;
+    float:        right;
+    font-size:    20px;
+    font-weight:  bold;
+    color:        white;
+    
+}    
+#contactus a {
+    text-decoration: none;
+}
+#search {
+    display: none;
+}
 </style>
 
 <?php
@@ -35,14 +75,24 @@ $folderName = "february2013" //Used for image upload.  Must be the folder name o
 //#####################ALSO MAKE SURE AND MAKE SLIDESHOW PICTURES FOLDER CHMOD 777################
 
 ?>
-<!--  -->
+
+<!-- CSS for Twitter Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
+	
+<!-- CSS for jQuery Picture Gallery -->
+	<link rel="stylesheet" href="css/basic.css" type="text/css" />
+	<link rel="stylesheet" href="css/contactusmodal.css" type="text/css" />
+    <link rel="stylesheet" href="css/galleriffic-2.css" type="text/css" />
 
 <!-- jQuery library -->
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <!-- Gallerific JavaScript-->
-		<script type="text/javascript" src="js/jquery.galleriffic.js"></script>
-		<script type="text/javascript" src="js/jquery.opacityrollover.js"></script>
+	<script type="text/javascript" src="js/jquery.galleriffic.js"></script>
+    <script type="text/javascript" src="js/jquery.opacityrollover.js"></script>
+
+<!-- Twitter Bootstrap -->
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
 
 
 <!-- JavaScript -->
@@ -55,10 +105,7 @@ $folderName = "february2013" //Used for image upload.  Must be the folder name o
 	<script type="text/javascript">
 		document.write('<style>.noscript { display: none; }</style>');
 	</script>
-	
-	<!-- CSS for jQuery Picture Gallery -->
-	<link rel="stylesheet" href="css/basic.css" type="text/css" />
-	<link rel="stylesheet" href="css/galleriffic-2.css" type="text/css" />
+
 
 
 </head>
@@ -88,7 +135,7 @@ $browser = get_browser(null, true);
 
 //Send an email when someone comes along
 $to = "jason.levinsohn@gmail.com";
-$subject = "LEVS DELIGHT - February 2012 Visitor";
+$subject = "LEVS DELIGHT - February 2013 Visitor";
 $message = "" .
 		"Someone is checking out the Levs Delight Web Site at: <b>" . $_SERVER['REMOTE_ADDR'] . "</b> <br />" .
 		"They are using the <b>" . $browser['browser'] . "</b> browser on the <b>" . $browser['platform'] . " </b> platform<br />";
@@ -220,8 +267,57 @@ if(isset($_GET['numberOfPicsToUpdate'])) {
 					<fieldset>
 					<input type="text" id="search-text" name="s" value="" />
 					</fieldset>
-				</form>
-			</div>
+                </form>
+            </div>
+            
+            <!-- NEW TWITTER BOOTSTAP MODAL BOX FOR CONTACT US SECTION - BEGIN -->
+
+            <!-- Button to Trigger Modal Box -->
+            <div id="contactus">
+                <a href="#contactUsModal" role="button" class="btn" data-toggle="modal" title="Whats on your mind?" alt="Contact Us">Contact Us Here!</a>
+            </div>
+
+            <!-- Modal -->
+            <!-- TO ACTIVATE THE MODAL REPLACE # WITH contactUsModal> -->
+
+            <div id="contactUsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contactUsModalLabel" aria-hidden="true">
+   <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <!-- <h3 id="contactUsModalLabel">Whats Up?</h3> -->
+                </div>
+                <div class="modal-body">
+<form class="contact_form" action="" method="post" name="contact_form">
+<ul>
+    <li>
+        <h2>Whats Up? </h2>
+        <span class="required_notification">* Denotes Required Field</span>
+    </li>
+    <li>
+        <label for="name">Name:</label>
+        <input type="text" name="name" placeholder="Your Name" required pattern="^.{2,}$"/>
+    </li>
+    <li>
+        <label for="email">Email: </label>
+        <input type="email" name="email" required placeholder="yourname@example.com" />
+        <!-- <span class="form_hint">Proper format "name@something.com"</span> -->
+    </li>
+    <li>
+        <label for="message">Message: </label>
+        <textarea name="message" required cols="40" rows="6" pattern="^.{5,}$"placeholder="What do you want to talk about?"></textarea>
+    </li>
+    <li>
+        <button class="submit" type="submit">Send Message</button>
+    </li>
+</ul>
+</form>
+                </div>
+                <div class="modal-footer">
+                </div>
+
+            </div>
+            
+        <!-- NEW TWITTER BOOTSTAP MODAL BOX FOR CONTACT US SECTION - END -->
+            
 			<!-- end #logo -->
 		</div>
 		<!-- end #header -->
@@ -235,6 +331,48 @@ if(isset($_GET['numberOfPicsToUpdate'])) {
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$('#menu').load('../page-pieces/navigation-block.html');
+                
+                $('.contact_form').submit(function(form) {
+                    
+                    var contact = form.currentTarget;
+                    var name = contact.name.value;
+                    var email = contact.email.value;
+                    var message = contact.message.value;
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'contactusPost.php',
+                        data: {
+                            'name': name,
+                            'email': email,
+                            'message': message
+                        },
+                        success: function(data) {
+                            var parsed = JSON.parse(data);
+                            
+                            var replyMessage = "<h2>Hey, " + parsed.name + "</h2><br />Great Talk. ";
+                            replyMessage += "We will get back with you ASAP.  Have a good one. <br /><br />";
+                            replyMessage += "<button type='button' class='submit' data-dismiss='modal' aria-hidden='true'>Close</button>";
+                            
+                            $('.modal-body').html(replyMessage); 
+                            $('.modal-header').remove();
+
+                        },
+                        failure: function(data) {
+                            var replyMessage = "<h2>Sorry!!</h2><br />";
+                            replyMessage += "There must be something wrong with our system.  Please try again. <br /><br />";
+                            replyMessage += "<button type='button' class='submit' data-dismiss='modal' aria-hidden='true'>Close</button>";
+                            
+                            $('.modal-body').html(replyMessage); 
+                            $('#contactUsModal').removeClass('modal-header');
+
+                        }
+
+                    });
+
+                    
+                    form.preventDefault();
+                });
 			});
 		</script>
 		<!-- end #menu -->
@@ -268,14 +406,7 @@ if(isset($_GET['numberOfPicsToUpdate'])) {
 							$pictureShowQuery = "SELECT * FROM slideshows WHERE slideshowid = $slideshowId and isActive = 1 ORDER BY `order` ASC";
 							$pictureShowStatement = $dbh->query($pictureShowQuery);
 							?>
-							<script>
-								Ext.onReady(function() {
-									
-
-								});
-
-							</script>
-							<?php
+													<?php
 				 			foreach($pictureShowStatement as $row) {
 							?>
 								<!-- If we are logged in, we can change the description, otherwise no. -->

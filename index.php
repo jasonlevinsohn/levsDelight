@@ -33,14 +33,13 @@ Released   : 20090717
     <script type="text/javascript" src="extjs/ext-4-0-2a/ext-all.js"></script>
 	<script type="text/javascript" src="js/ajax.js"></script>
 	<script type="text/javascript" src="js/jquery-ninja.js"></script>
-        <script type="text/javascript" src="js/snow.js"></script>
+<!--        <script type="text/javascript" src="js/snow.js"></script> -->
 	<script type="text/javascript">
 		
 
 		Ext.onReady(function() {
-			//$('#menu').load('page-pieces/navigation-block.html');
+		$('#menu').load('page-pieces/navigation-block.html');
             $('#sidebar-menu').load('page-pieces/sidebar-menu.html');
-            console.log("whas up");
 		});
 		//This sets the ExtJS CSS so it only applies to ext components
 		//And does not mess with our other CSS rules **SWEETNESS**
@@ -593,7 +592,7 @@ if(isset($_POST['dafneyUpdatePostText'])) {
 
 
 ?>
-<canvas id="canvas"></canvas>
+<!-- <canvas id="canvas"></canvas> -->
 <div id="wrapper">
 	<div id="header-wrapper">
 		<div id="header">

@@ -50,7 +50,7 @@ try {
 			
 			
 		} catch (Exception $e) {
-			echo '{"success": true, "message": "Error Uploading File: ' . $e->getMessage() . ' }';
+			echo '{"success": false, "message": "Error Uploading File: ' . $e->getMessage() . ' }';
 		}
 		
 		//**********************GET THE SLIDESHOW ID FROM THE SLIDESHOW MAP TABLE***************

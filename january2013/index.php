@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<html>
 <!--
 Design by Free CSS Templates
 http://www.freecsstemplates.org
@@ -10,18 +10,24 @@ Version    : 1.0
 Released   : 20090717
 
 -->
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>January Pictures - LevsDelight</title>
-<meta name="keywords" content="Janaury pictures, villa rica farm" />
+<meta name="keywords" content="Janaury 2013 pictures, villa rica farm" />
 <meta name="description" content="" />
 <!-- <link rel="stylesheet" type="text/css" href="extjs/ext-4-0-2a/resources/css/ext-standard.css"> -->
 <link href="../css/style.css" rel="stylesheet" type="text/css" media="screen" /> 
 <!-- Snow Layer  -->
 <!-- <link href="../css/snow.css" rel="stylesheet" type="text/css" /> -->
 <style type="text/css">
-
+#slideshow img:hover {
+  -webkit-transform: scale(1.2);
+     -moz-transform: scale(1.2);
+      -ms-transform: scale(1.2);
+       -o-transform: scale(1.2);
+          transform: scale(1.2);
+          z-index: 100;
+}
 	
 </style>
 
@@ -30,7 +36,7 @@ Released   : 20090717
 //**************************Change Variables here for each seperate slideshow*******************
 //**********************************************************************************************
 $slideshowId = "19"; //This is the id number for this slideshow.  Each one must be unique.  Also used to upload images
-$folderName = "january2013" //Used for image upload.  Must be the folder name of the slideshow
+$folderName = "january2013"; //Used for image upload.  Must be the folder name of the slideshow
 //#####################DON'T FORGET TO ADD AN ENTRY TO THE monthMap TABLE#########################
 //#####################ALSO MAKE SURE AND MAKE SLIDESHOW PICTURES FOLDER CHMOD 777################
 
@@ -88,7 +94,7 @@ $browser = get_browser(null, true);
 
 //Send an email when someone comes along
 $to = "jason.levinsohn@gmail.com";
-$subject = "LEVS DELIGHT - January 2012 Visitor";
+$subject = "LEVS DELIGHT - January 2013 Visitor";
 $message = "" .
 		"Someone is checking out the Levs Delight Web Site at: <b>" . $_SERVER['REMOTE_ADDR'] . "</b> <br />" .
 		"They are using the <b>" . $browser['browser'] . "</b> browser on the <b>" . $browser['platform'] . " </b> platform<br />";
