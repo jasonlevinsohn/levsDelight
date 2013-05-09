@@ -15,7 +15,7 @@
                 <span class="ib-nav-prev">Previous</span>
                 <span class="ib-nav-next">Next</span>
             </div>
-            <span class="ib-close" style="display:none;">Close Preview</span>
+            <span class="ib-close" style="display:none;">X</span>
             <div class="ib-loading-large" style="display:none;">Loading...</div>
         </div>		
     </script>
@@ -35,6 +35,7 @@
 // Turn on all error reporting and connect to the database once.
 error_reporting(E_ALL);
 require_once('../connect.php');
+error_log("Ezras Page has been loaded");
 ?>
 
 <body>
@@ -56,7 +57,7 @@ require_once('../connect.php');
 
     <?php
         //Query for Pictures of Ezra
-        $ezraShowQuery = "SELECT * FROM ezraShows WHERE isActive = 1 ORDER BY sortOrder ASC";
+        $ezraShowQuery = "SELECT * FROM ezraShows WHERE isActive = 1 ORDER BY timestamp DESC";
         $ezraShowStatement = $dbh->query($ezraShowQuery);
     ?>
 
@@ -65,6 +66,8 @@ require_once('../connect.php');
     <!-- http://tympanus.net/codrops/2011/10/07/draggable-image-boxes-grid/ -->
     <div id="ib-main-wrapper" class="ib-main-wrapper">
         <div class="ib-main">
+
+            <h2 class="monthHeader">March and April 2013</h2>
             <?php foreach($ezraShowStatement as $row) { ?>
                 <a href="#">
                     <img src="<?php echo $row['thumbLocation']?>" data-largesrc="<?php echo $row['largeLocation']?>" alt="<?php echo $row['desc']?>" />
@@ -77,11 +80,6 @@ require_once('../connect.php');
                 <span>Dancing Boy</span>
             </a>
 
-    <!-- Test Image Links -->
-    <!-- <img src="images/dancing-boy.jpg" height="100" width="100" /> -->
-    <!-- <img src="images/ezra-and-pops.jpg" height="100" width="100" /> -->
-    <!-- <img src="images/ezra-on-easter.jpeg" height="100" width="100" /> -->
-    <!-- <img src="images/ezra-sleeping.jpg" height="100" width="100" /> -->
 
     <!-- Draggable Image Boxes Grid - END -->
     <!-- JavaScript -->

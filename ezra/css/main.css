@@ -240,16 +240,14 @@ body {
 }
 
 .ib-close{
-    top: 7px;
-    right: 7px;
-    background: transparent url(../images/close.png) no-repeat center center;
+    top: 17px;
+    right: 27px;
     position: absolute;
-    width: 24px;
-    height: 24px;
     cursor: pointer;
-    opacity: 0.2;
+    opacity: 0.5;
     z-index: 999;
-    text-indent: -9000px;
+    font-size: 60pt;
+    font-family: "Helvetica";
 }
 .ib-nav span:hover, .ib-close:hover{
     opacity: 1;

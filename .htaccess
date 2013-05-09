@@ -4,4 +4,4 @@ Options -Indexes
 
 RewriteEngine On
 RewriteCond %{HTTP_HOST} ^(www.)?levsdelight.com$
-RewriteRule ^(/)?$ april2013 [L]
+RewriteRule ^(/)?$ may2013 [L]

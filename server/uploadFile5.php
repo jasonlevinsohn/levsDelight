@@ -26,8 +26,12 @@ try {
 		
 		
 		//******************GET THE HIGHEST ID TO USE AS THE IMAGE NAME IF IT EXISTS**********************
-		try {
-			$getMaxIdQuery = "SELECT MAX(id) as maxId FROM slideshows";
+        try {
+            if($createThumb) {
+			    $getMaxIdQuery = "SELECT MAX(id) as maxId FROM ezraShows";
+            } else {
+			    $getMaxIdQuery = "SELECT MAX(id) as maxId FROM slideshows";
+            }
 			$getMaxIdStatement = $dbh->query($getMaxIdQuery);
 			if(count($dbh->query($getMaxIdQuery)->fetchAll() == 1)) {
 				foreach($getMaxIdStatement as $theMax) {
@@ -37,7 +41,7 @@ try {
 				$maxId = 0;
 			}
 		} catch (Exception $e) {
-			echo '{"success": true, "message": "Error Querying Database for Hightest ID' . $e->getMessage() . ' }';
+			echo '{"success": false, "message": "Error Querying Database for Hightest ID' . $e->getMessage() . ' }';
 		}
 		
 		
@@ -48,12 +52,22 @@ try {
 
             // Create Thumbnail if Ezra Picture
             if ($createThumb) {
-			    $thumbPath = "/var/www/levsdelight/htdocs/" . $month . "/" . $month . "-pictures/thumbs/mobile-image" . $maxId . ".jpg";
+
+                $imageDimensions = new Imagick($_FILES["file"]["tmp_name"]);
+                $geo = $imageDimensions->getImageGeometry();
+                $imageWidth = $geo['width'];
+                $imageHeight = $geo['height'];
+                error_log("Image Height: " . $imageHeight . " Width: " . $imageWidth);
+		$or = $imageDimensions->getImageOrientation();
+		error_log("orientation: " . $or);
+
+
+			    $thumbPath = "/var/www/levsdelight/htdocs/" . $month . "/images/thumbs/mobile-image" . $maxId . ".jpg";
                 $image2 = new Imagick($_FILES["file"]["tmp_name"]);
-			    $image2->thumbnailImage(20, 20, TRUE);
+			    $image2->thumbnailImage(200, 200, TRUE);
 			    $image2->writeImage($thumbPath);
 
-			    $uploadPath = "/var/www/levsdelight/htdocs/" . $month . "/" . $month . "-pictures/large/mobile-image" . $maxId . ".jpg";
+			    $uploadPath = "/var/www/levsdelight/htdocs/" . $month . "/images/large/mobile-image" . $maxId . ".jpg";
                 $image = new Imagick($_FILES["file"]["tmp_name"]);
 			    $image->thumbnailImage(533, 400, TRUE);
 			    $image->writeImage($uploadPath);
@@ -88,12 +102,12 @@ try {
 				echo '{"success": true, "message": "Could not get the MonthId: ' . $e->getMessage() . ' }';
 			}
 		} catch (Exception $e) {
-			echo '{"success": true, "message": "Error Getting Slideshow Id: ' . $e->getMessage() . ' }';
+			echo '{"success": false, "message": "Error Getting Slideshow Id: ' . $e->getMessage() . ' }';
 		}
 		
 		
 		//**********************GET THE HIGHEST SORT ORDER IN OUR CURRENT SLIDESHOW*************
-		try {
+        try {
 			$getSortOrderQuery = "SELECT MAX(`order`) as sortOrder FROM slideshows WHERE slideshowid = " . $monthId;
 			$getSortOrderStatement = $dbh->query($getSortOrderQuery);
 			if(count($dbh->query($getSortOrderQuery)->fetchAll() == 1)) {
@@ -104,27 +118,42 @@ try {
 				$sortOrder = "1";
 			}
 		} catch (Exception $e) {
-			echo '{"success": true, "message": "Error Getting Highest Sort Order: ' . $e->getMessage() . ' }';
+			echo '{"success": false, "message": "Error Getting Highest Sort Order: ' . $e->getMessage() . ' }';
 		}
 		
 		//**********************PERSIST THE MAP TO OUR NEWLY UPLOADED PICTURE TO THE SLIDESHOW*************
-		try {
-			$databasePath = $month . "-pictures/mobile-image" . $maxId . ".jpg";
-			
-			$addPictureQuery = "INSERT INTO slideshows(title, `desc`, pictureLocation, isActive, slideshowid, `order`)";
-			$addPictureQuery .= " VALUES('" . $title . "', '" . $desc . "', '" . $databasePath . "', 1, " . $monthId . ", " . $sortOrder .  ")";
-		 	$addPicturePrep = $dbh->prepare($addPictureQuery);
-			$addPicturePrep->execute();
+        try {
+            if($createThumb) {
+
+                $thumbPath = "images/thumbs/mobile-image" . $maxId . ".jpg";
+                $largePath = "images/large/mobile-image" . $maxId . ".jpg";
+                $rightNow = date("Y-m-d H:i:s");
+                $addPictureQuery = "INSERT INTO ezraShows(title, `desc`, thumbLocation, largeLocation, isActive, monthId, sortOrder, timestamp)";
+                $addPictureQuery .= " VALUES('" . $title . "', '" . $desc . "', '" . $thumbPath . "', '" . $largePath . "', 1, " . $monthId . ", " . $sortOrder . ", '" . $rightNow . "')";
+                error_log("The mysql insert query for uploading pictures: ");
+                error_log($addPictureQuery);
+                $addPicturePrep = $dbh->prepare($addPictureQuery);
+                $addPicturePrep->execute();
+            } else {
+
+                $databasePath = $month . "-pictures/mobile-image" . $maxId . ".jpg";
+                
+                $addPictureQuery = "INSERT INTO slideshows(title, `desc`, pictureLocation, isActive, slideshowid, `order`)";
+                $addPictureQuery .= " VALUES('" . $title . "', '" . $desc . "', '" . $databasePath . "', 1, " . $monthId . ", " . $sortOrder .  ")";
+                $addPicturePrep = $dbh->prepare($addPictureQuery);
+                $addPicturePrep->execute();
+            }
 
 			
 		} catch (Exception $e) {
-			echo '{"success": true, "message": "Error Persisting File Location to Database: ' . $e->getMessage() . ' }';
+			echo '{"success": false, "message": "Error Persisting File Location to Database: ' . $e->getMessage() . ' }';
 		}
 		
 
-		echo '{"success": true, "message": "Picture Uploaded to: ' . $month . ' slideshow. " }';
+        echo '{"success": true, "message": "Picture Uploaded to: ' . $month . ' slideshow. " }';
+        error_log("A picture has been uploaded successfully.");
 	} else {
-		echo '{"success": true, "message": "The month is not set" }';
+		echo '{"success": false, "message": "The month is not set" }';
 
 	}
 	

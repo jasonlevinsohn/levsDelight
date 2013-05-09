@@ -13,8 +13,8 @@ Released   : 20090717
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>April 2013 Pictures - LevsDelight</title>
-<meta name="keywords" content="April 2013 pictures, villa rica farm, llamas, petting zoo, pot-belly pig, donkey" />
+<title>May 2013 Pictures - LevsDelight</title>
+<meta name="keywords" content="May 2013 pictures, villa rica farm, llamas, petting zoo, pot-belly pig, donkey" />
 <meta name="description" content="Natty and Jason's Petting Zoo with Llamas, chickens, pot-belly pigs, and a donkey." />
 <!-- <link rel="stylesheet" type="text/css" href="extjs/ext-4-0-2a/resources/css/ext-standard.css"> -->
 <link href="../css/style.css" rel="stylesheet" type="text/css" media="screen" /> 
@@ -63,11 +63,10 @@ $isFireFox = (bool) strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox');
         font-weight:  bold;
         color:        white;
     <?php } else {  ?>
-        position:     relative;
-        left:         360px;
+        position:     absolute;
+        left:         660px;
         /* left:         -10px; */
         top:          48px;
-        float:        right;
         font-size:    20px;
         font-weight:  bold;
         color:        white;
@@ -87,8 +86,8 @@ $isFireFox = (bool) strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox');
 //**********************************************************************************************
 //**************************Change Variables here for each seperate slideshow*******************
 //**********************************************************************************************
-$slideshowId = "22"; //This is the id number for this slideshow.  Each one must be unique.  Also used to upload images
-$folderName = "april2013" //Used for image upload.  Must be the folder name of the slideshow
+$slideshowId = "23"; //This is the id number for this slideshow.  Each one must be unique.  Also used to upload images
+$folderName = "may2013" //Used for image upload.  Must be the folder name of the slideshow
 //#####################DON'T FORGET TO ADD AN ENTRY TO THE monthMap TABLE#########################
 //#####################ALSO MAKE SURE AND MAKE SLIDESHOW PICTURES FOLDER CHMOD 777################
 
@@ -295,6 +294,7 @@ if(isset($_GET['numberOfPicsToUpdate'])) {
 
             <!-- Button to Trigger Modal Box -->
             <div id="contactus">
+            <a href="http://www.levsdelight.com/index.php">View our Latest Post</a><span> | </span>
             <a href="#contactUsModal" role="button" class="btn" data-toggle="modal" title="Whats on your mind?" alt="Contact Us">Contact Us Here!</a>
             </div>
 
