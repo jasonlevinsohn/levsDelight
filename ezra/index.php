@@ -71,7 +71,7 @@ error_log("Ezras Page has been loaded");
             <?php foreach($ezraShowStatement as $row) { ?>
                 <a href="#">
                     <img src="<?php echo $row['thumbLocation']?>" data-largesrc="<?php echo $row['largeLocation']?>" alt="<?php echo $row['desc']?>" />
-                    <span><?php echo $row['desc'] ?></span>
+                    <span><?php echo $row['title'] . ' | ' . $row['width'] . ' - ' . $row['height'] . ' - ' . $row['orientation'] ?></span>
                 </a>
             <?php } ?>
             

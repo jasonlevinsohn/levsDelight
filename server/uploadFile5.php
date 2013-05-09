@@ -58,8 +58,17 @@ try {
                 $imageWidth = $geo['width'];
                 $imageHeight = $geo['height'];
                 error_log("Image Height: " . $imageHeight . " Width: " . $imageWidth);
-		$or = $imageDimensions->getImageOrientation();
-		error_log("orientation: " . $or);
+
+		        $or = $imageDimensions->getImageOrientation();
+                error_log("orientation: " . $or);
+
+                if ($or == 1) {
+                    $textOrientation = 'Landscape';
+                } else if ($or == 6) {
+                    $textOrientation = 'Portrait';
+                } else {
+                    $textOrientation = 'Unknown';
+                }
 
 
 			    $thumbPath = "/var/www/levsdelight/htdocs/" . $month . "/images/thumbs/mobile-image" . $maxId . ".jpg";
@@ -69,7 +78,7 @@ try {
 
 			    $uploadPath = "/var/www/levsdelight/htdocs/" . $month . "/images/large/mobile-image" . $maxId . ".jpg";
                 $image = new Imagick($_FILES["file"]["tmp_name"]);
-			    $image->thumbnailImage(533, 400, TRUE);
+			    $image->thumbnailImage($imageWidth, $imageHeight, TRUE);
 			    $image->writeImage($uploadPath);
             } else {
 
@@ -128,8 +137,8 @@ try {
                 $thumbPath = "images/thumbs/mobile-image" . $maxId . ".jpg";
                 $largePath = "images/large/mobile-image" . $maxId . ".jpg";
                 $rightNow = date("Y-m-d H:i:s");
-                $addPictureQuery = "INSERT INTO ezraShows(title, `desc`, thumbLocation, largeLocation, isActive, monthId, sortOrder, timestamp)";
-                $addPictureQuery .= " VALUES('" . $title . "', '" . $desc . "', '" . $thumbPath . "', '" . $largePath . "', 1, " . $monthId . ", " . $sortOrder . ", '" . $rightNow . "')";
+                $addPictureQuery = "INSERT INTO ezraShows(title, `desc`, thumbLocation, largeLocation, isActive, monthId, sortOrder, timestamp, height, width, orientation)";
+                $addPictureQuery .= " VALUES('" . $title . "', '" . $desc . "', '" . $thumbPath . "', '" . $largePath . "', 1, " . $monthId . ", " . $sortOrder . ", '" . $rightNow . "', " . $imageHeight . ", " . $imageWidth . ", '" . $textOrientation . "')";
                 error_log("The mysql insert query for uploading pictures: ");
                 error_log($addPictureQuery);
                 $addPicturePrep = $dbh->prepare($addPictureQuery);

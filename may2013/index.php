@@ -165,10 +165,14 @@ $header = 'From: jlev711@gmail.com' . "\r\n" .
 	'Content-Type: text/html';
 	
 
-if(mail($to, $subject, $message, $header)) {
+if(mail($to, $subject, $message)) {
+    error_log("Mail being sent from: " . $header);
+    error_log("to: " . $to . " subject:  " . $message);
+    error_log("Subject: " . $subject);
 
 } else {
-	echo 'Less Amesome';
+    echo 'Less Amesome';
+    error_log("Error Sending Mail");
 }
 
 //*********************************************************
